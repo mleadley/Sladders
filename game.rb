@@ -18,7 +18,13 @@ class Game
   end
 
   def validated_move(player, die_roll)
-    player.move(die_roll)
+    adjusted_move = die_roll
+    distance_to_finish = 100 - player.position
+    if distance_to_finish < die_roll
+      overshoot = die_roll - distance_to_finish
+      adjusted_move -= (2 * overshoot)
+    end
+    player.move(adjusted_move)
   end
 
   def take_turn(player)
@@ -27,6 +33,7 @@ class Game
 
     die_roll = @die.roll()
     puts "#{player.name} rolled a #{die_roll}."
+    validated_move(player, die_roll)
 
     sladder = board.check_tile(player.position)
     if sladder != nil
