@@ -24,7 +24,7 @@ class Board
   end
 
   def setup_random_board
-
+    
   end
 
   def check_tile(tile)

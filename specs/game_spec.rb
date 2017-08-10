@@ -22,11 +22,6 @@ class GameTest < MiniTest::Test
     assert_equal( false, @game.board.is_nil?() )
   end
 
-  def test_remove_player
-    @game.remove_player(@player4)
-    assert_equal( false, @players.include?(@player4) )
-  end
-
   def test_yield_order
     turn_order = @game.yield_order()
 
