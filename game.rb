@@ -24,6 +24,7 @@ class Game
   end
 
   def take_turn(player)
+    return nil if player.alive == false
     print "It's #{player.name}'s turn."
     gets
     die_roll = @die.roll()
@@ -33,7 +34,7 @@ class Game
     if sladder != nil then
       if sladder.jaguar? then
         puts "Oh no! You've been eaten by a Jaguar! Bye-bye!"
-        remove_player(player)
+        return player.kill()
       end
       puts "Oh no! You've been eaten by a Snake!" if sladder.snake?
       puts "Oh yes! You've been eaten by a Ladder!" if sladder.ladder?
