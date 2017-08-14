@@ -4,6 +4,11 @@ class Printer
     puts "Welcome to Sladders The Game!"
   end
 
+  def ask_for_name
+    puts "What is your name, brave adventurer?"
+    return gets.chomp
+  end
+
   def ask_if_random
     puts "Would you like a random board? Type 'yes' if so."
     return gets.chomp == "yes"

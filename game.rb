@@ -5,7 +5,7 @@ require_relative "printer"
 
 class Game
 
-  def initialize(players)
+  def initialize(players = [])
     @players = players
     @die = Die.new()
     @printer = Printer.new()
@@ -21,6 +21,8 @@ class Game
 
   def prepare
     @printer.opening_message
+    player_name = @printer.ask_for_name
+    generate_players(player_name)
     random_board = @printer.ask_if_random
     @board = Board.new(random_board)
   end
@@ -71,4 +73,11 @@ class Game
     player.move(adjusted_move)
   end
 
+  def generate_players(human_name)
+    @players << Player.new(human_name, 0, false)
+    ai_names = ["Yield", "Bestow", "Contribute", "Realise",
+                "Bear", "Produce", "Afford", "Furnish"].shuffle
+    2.times { @players << Player.new(ai_names.pop, 0, true) }
+    @players.each {|x| puts x.inspect}
+  end
 end
