@@ -7,21 +7,33 @@ class Game
 
   def initialize(players)
     @players = players
-    @board = Board.new()
     @die = Die.new()
     @printer = Printer.new()
   end
 
-  def yield_order()
+  def ai_won?
+    return false if @winner.nil?
+    return @winner.ai
   end
 
-  def yield_commencement()
+  def yield_order
+  end
+
+  def prepare
     @printer.opening_message
+    random_board = @printer.ask_if_random
+    @board = Board.new(random_board)
+  end
+
+  def yield_commencement
     loop do
       @players.each do |player|
         next if player.alive == false
         take_turn(player)
-        return @printer.winning_message(player) if player.has_won?
+        if player.has_won?
+          @printer.winning_message(player)
+          return @winner = player
+        end
       end
     end
   end
@@ -34,7 +46,8 @@ class Game
     @printer.die_roll_message(player, @die.result)
     validated_move(player)
 
-    handle_sladder(player)
+    still_alive = handle_sladder(player)
+    return nil if still_alive == false
 
     @printer.turn_end_message(player)
   end

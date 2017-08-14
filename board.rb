@@ -5,6 +5,7 @@ class Board
   attr_reader :sladders
 
   def initialize(random_sladders = false)
+    @sladders = []
     setup_fixed_board()  if random_sladders == false
     setup_random_board() if random_sladders == true
   end
@@ -24,7 +25,14 @@ class Board
   end
 
   def setup_random_board
-    
+    possible_tiles = [*1..99].shuffle
+    13.times do
+      ends = possible_tiles.pop(2)
+      @sladders << Sladder.new(ends[0], ends[1])
+    end
+    jaguar_start = possible_tiles.sample
+    @sladders << Sladder.new(jaguar_start, -1)
+    @sladders.each {|s| puts s.inspect}
   end
 
   def check_tile(tile)
