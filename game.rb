@@ -19,15 +19,8 @@ class Game
   def yield_order
   end
 
-  def prepare
-    @printer.opening_message
-    player_name = @printer.ask_for_name
-    generate_players(player_name)
-    random_board = @printer.ask_if_random
-    @board = Board.new(random_board)
-  end
-
   def yield_commencement
+    prepare
     loop do
       @players.each do |player|
         next if player.alive == false
@@ -41,6 +34,14 @@ class Game
   end
 
   private
+  def prepare
+    @printer.opening_message
+    player_name = @printer.ask_for_name
+    generate_players(player_name)
+    random_board = @printer.ask_if_random
+    @board = Board.new(random_board)
+  end
+  
   def take_turn(player)
     @printer.turn_start_message(player)
 
