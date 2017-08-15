@@ -32,7 +32,7 @@ class Board
     end
     jaguar_start = possible_tiles.sample
     @sladders << Sladder.new(jaguar_start, -1)
-    @sladders.each {|s| puts s.inspect}
+    # @sladders.each {|s| puts s.inspect}
   end
 
   def check_tile(tile)

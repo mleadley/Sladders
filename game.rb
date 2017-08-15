@@ -41,7 +41,7 @@ class Game
     random_board = @printer.ask_if_random
     @board = Board.new(random_board)
   end
-  
+
   def take_turn(player)
     @printer.turn_start_message(player)
 
@@ -79,6 +79,6 @@ class Game
     ai_names = ["Yield", "Bestow", "Contribute", "Realise",
                 "Bear", "Produce", "Afford", "Furnish"].shuffle
     2.times { @players << Player.new(ai_names.pop, 0, true) }
-    @players.each {|x| puts x.inspect}
+    # @players.each {|x| puts x.inspect}
   end
 end
